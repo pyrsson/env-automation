@@ -4,11 +4,12 @@
     dest: ~/github/dotfiles
     accept_hostkey: yes
 
-- name: clone dotfile repo
+- name: install ohmyzsh
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: ~/.oh-my-zsh
     accept_hostkey: yes
+  when: lookup('fileglob', '~/.oh-my-zsh') == ''
 
 - name: create links for dotfiles
   ansible.builtin.file:
@@ -17,10 +18,3 @@
     src: ~/github/dotfiles/{{ item }}
     force: yes
   loop: "{{ dotfiles }}"
-
-- name: create link for omz custom resources
-  ansible.builtin.file:
-    path: ~/.oh-my-zsh/custom
-    state: link
-    src: ~/github/dotfiles/ohmyzsh
-    force: yes

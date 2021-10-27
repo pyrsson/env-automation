@@ -2,15 +2,18 @@
   ansible.builtin.package:
     name: '*'
     state: latest
+  become: yes
 
 - name: apt - install packages
   ansible.builtin.apt:
     name: '{{ packages + ubuntu_packages }}'
     state: latest
   when: ansible_facts.distribution == 'Ubuntu'
+  become: yes
 
 - name: yum - install packages
   ansible.builtin.yum:
     name: '{{ packages + fedora_packages }}'
     state: latest
   when: ansible_facts.distribution == 'Fedora'
+  become: yes
