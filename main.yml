@@ -1,5 +1,7 @@
 - hosts: localhost
-  vars_files: ./config.yml
+  vars_files:
+    - ./config.yml
+    - ./secrets.yml
   tasks:
     - ansible.builtin.import_tasks: ./tasks/packages.yml
     - ansible.builtin.import_tasks: ./tasks/dotfiles.yml
