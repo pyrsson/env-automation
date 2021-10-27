@@ -1,0 +1,26 @@
+- name: clone dotfile repo
+  ansible.builtin.git:
+    repo: https://pyrsson:{{ github_password }}@github.com/pyrsson/dotfiles.git
+    dest: ~/github/dotfiles
+    accept_hostkey: yes
+
+- name: clone dotfile repo
+  ansible.builtin.git:
+    repo: https://github.com/ohmyzsh/ohmyzsh.git
+    dest: ~/.oh-my-zsh
+    accept_hostkey: yes
+
+- name: create links for dotfiles
+  ansible.builtin.file:
+    path: ~/{{ item }}
+    state: link
+    src: ~/github/dotfiles/{{ item }}
+    force: yes
+  loop: "{{ dotfiles }}"
+
+- name: create link for omz custom resources
+  ansible.builtin.file:
+    path: ~/.oh-my-zsh/custom
+    state: link
+    src: ~/github/dotfiles/ohmyzsh
+    force: yes
