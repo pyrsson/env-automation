@@ -18,3 +18,9 @@
     src: ~/github/dotfiles/{{ item }}
     force: yes
   loop: "{{ dotfiles }}"
+
+- name: set default shell to zsh
+  ansible.builtin.user:
+    name: "{{ ansible_env.USER }}"
+    shell: /bin/zsh
+  become: yes

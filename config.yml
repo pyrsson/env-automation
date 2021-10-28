@@ -4,8 +4,10 @@ packages:
   - pip
   - vim
   - tmux
-ubuntu_packages: []
-fedora_packages: []
+ubuntu_packages:
+  - silversearcher-ag
+fedora_packages:
+  - the_silver_searcher
 dotfiles:
   - .zshrc
   - .vimrc
