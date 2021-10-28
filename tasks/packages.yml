@@ -1,3 +1,28 @@
+- name: yum - kubernetes repo
+  ansible.builtin.yum_repository:
+    name: Kubernetes
+    baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    enabled: 1
+    gpgcheck: 1
+    repo_gpgcheck: 1
+    gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+  when: ansible_distribution == 'Fedora'
+  become: yes
+
+- name: apt - download kubernetes key
+  ansible.builtin.uri:
+    url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
+    dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
+  when: ansible_pkg_mgr == 'apt'
+  become: yes
+
+- name: apt - kubernetes repo
+  ansible.builtin.apt_repository:
+    repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
+    update-cache: yes
+  when: ansible_pkg_mgr == 'apt'
+  become: yes
+
 - name: update packages
   ansible.builtin.package:
     name: '*'
@@ -8,12 +33,12 @@
   ansible.builtin.apt:
     name: '{{ packages + ubuntu_packages }}'
     state: present
-  when: ansible_facts.distribution == 'Ubuntu'
+  when: ansible_pkg_mgr == 'apt'
   become: yes
 
-- name: yum - install packages
-  ansible.builtin.yum:
+- name: dnf - install packages
+  ansible.builtin.dnf:
     name: '{{ packages + fedora_packages }}'
     state: present
-  when: ansible_facts.distribution == 'Fedora'
+  when: ansible_pkg_mgr == 'dnf'
   become: yes

@@ -4,9 +4,14 @@ packages:
   - pip
   - vim
   - tmux
+  - kubectl
 ubuntu_packages:
   - silversearcher-ag
+  - apt-transport-https
+  - ca-certificates
 fedora_packages:
+  - podman
+  - buildah
   - the_silver_searcher
 dotfiles:
   - .zshrc
