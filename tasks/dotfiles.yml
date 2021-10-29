@@ -1,6 +1,6 @@
 - name: clone dotfile repo
   ansible.builtin.git:
-    repo: https://pyrsson:{{ github_password }}@github.com/pyrsson/dotfiles.git
+    repo: https://github.com/pyrsson/dotfiles.git
     dest: ~/github/dotfiles
     accept_hostkey: yes
 

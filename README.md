@@ -1,6 +1,7 @@
 # Ansible setup for working env
 
-Install ansible via pip
+- python >= 3.6
+- pip >= 4.5
 
 ```bash
 cp secrets-template.yml secrets.yml
