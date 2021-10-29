@@ -9,14 +9,14 @@
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: ~/.oh-my-zsh
     accept_hostkey: yes
-  when: lookup('fileglob', '~/.oh-my-zsh') == ''
+  when: lookup("fileglob", "~/.oh-my-zsh") == ""
 
 - name: create links for dotfiles
   ansible.builtin.file:
     path: ~/{{ item }}
     state: link
     src: ~/github/dotfiles/{{ item }}
-    force: yes
+    force: "{{ force_symlink | default('no') }}"
   loop: "{{ dotfiles }}"
 
 - name: set default shell to zsh

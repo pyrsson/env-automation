@@ -6,39 +6,47 @@
     gpgcheck: 1
     repo_gpgcheck: 1
     gpgkey: https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
-  when: ansible_distribution == 'Fedora'
+  when: ansible_distribution == "Fedora"
   become: yes
 
 - name: apt - download kubernetes key
   ansible.builtin.uri:
     url: https://packages.cloud.google.com/apt/doc/apt-key.gpg
     dest: /usr/share/keyrings/kubernetes-archive-keyring.gpg
-  when: ansible_pkg_mgr == 'apt'
+    status_code: [200, 304]
+  when: ansible_pkg_mgr == "apt"
   become: yes
 
 - name: apt - kubernetes repo
   ansible.builtin.apt_repository:
     repo: deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main
     update-cache: yes
-  when: ansible_pkg_mgr == 'apt'
+  when: ansible_pkg_mgr == "apt"
+  become: yes
+
+- name: apt - update package cache
+  ansible.builtin.apt:
+    update_cache: yes
+    cache_valid_time: 3600
+  when: ansible_pkg_mgr == "apt"
   become: yes
 
 - name: update packages
   ansible.builtin.package:
-    name: '*'
+    name: "*"
     state: latest
   become: yes
 
 - name: apt - install packages
   ansible.builtin.apt:
-    name: '{{ packages + ubuntu_packages }}'
+    name: "{{ packages + ubuntu_packages }}"
     state: present
-  when: ansible_pkg_mgr == 'apt'
+  when: ansible_pkg_mgr == "apt"
   become: yes
 
 - name: dnf - install packages
   ansible.builtin.dnf:
-    name: '{{ packages + fedora_packages }}'
+    name: "{{ packages + fedora_packages }}"
     state: present
-  when: ansible_pkg_mgr == 'dnf'
+  when: ansible_pkg_mgr == "dnf"
   become: yes

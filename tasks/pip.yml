@@ -1,0 +1,5 @@
+- name: pip install packages
+  ansible.builtin.pip:
+    name: "{{ pip_packages }}"
+    state: latest
+  when: pip_packages is defined

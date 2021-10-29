@@ -4,4 +4,8 @@
     - ./secrets.yml
   tasks:
     - ansible.builtin.import_tasks: ./tasks/packages.yml
+      tags: packages
     - ansible.builtin.import_tasks: ./tasks/dotfiles.yml
+      tags: dotfiles
+    - ansible.builtin.import_tasks: ./tasks/pip.yml
+      tags: pip

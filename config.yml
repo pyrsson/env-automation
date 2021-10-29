@@ -13,7 +13,10 @@ fedora_packages:
   - podman
   - buildah
   - the_silver_searcher
+pip_packages:
+  - docker-compose
 dotfiles:
   - .zshrc
   - .vimrc
   - .tmux.conf
+force_symlink: no
