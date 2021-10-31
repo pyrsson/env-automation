@@ -1,7 +1,19 @@
+- name: yum - vscode repo
+  ansible.builtin.yum_repository:
+    name: code
+    description: Microsoft Visual Studio Code
+    baseurl: https://packages.microsoft.com/yumrepos/vscode
+    enabled: 1
+    gpgcheck: 1
+    gpgkey: https://packages.microsoft.com/keys/microsoft.asc
+  when: ansible_distribution == "Fedora"
+  become: yes
+
 - name: yum - kubernetes repo
   ansible.builtin.yum_repository:
-    name: Kubernetes
+    name: kubernetes
     baseurl: https://packages.cloud.google.com/yum/repos/kubernetes-el7-x86_64
+    description: Kubernetes repository
     enabled: 1
     gpgcheck: 1
     repo_gpgcheck: 1

@@ -9,7 +9,6 @@
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: ~/.oh-my-zsh
     accept_hostkey: yes
-  when: lookup("fileglob", "~/.oh-my-zsh") == ""
 
 - name: create links for dotfiles
   ansible.builtin.file:

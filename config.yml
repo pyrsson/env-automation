@@ -9,7 +9,19 @@ ubuntu_packages:
   - silversearcher-ag
   - apt-transport-https
   - ca-certificates
+  - fonts-powerline
 fedora_packages:
+  - code
+  - alacritty
+  - gnome-shell-extension-pop-shell
+  - nodejs-typescript
+  - bat
+  - cmake
+  - gcc-c++
+  - make
+  - golang
+  - python3-devel
+  - powerline-fonts
   - podman
   - buildah
   - the_silver_searcher
