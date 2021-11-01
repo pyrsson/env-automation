@@ -1,0 +1,32 @@
+- name: create dir for kubctx
+  ansible.builtin.file:
+    state: directory
+    mode: 644
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+    path: /opt/kubctx
+  become: yes
+
+- name: clone kubectx
+  ansible.builtin.git:
+    repo: https://github.com/ahmetb/kubectx
+    dest: /opt/kubectx
+    accept_hostkey: yes
+    update: yes
+    force: yes
+  become: yes
+
+- name: create links for scripts
+  ansible.builtin.file:
+    path: /usr/local/bin/{{ item }}
+    state: link
+    src: /opt/kubectx/{{ item }}
+  loop: [kubectx, kubens]
+  become: yes
+
+- name: create links for completions
+  ansible.builtin.file:
+    path: ~/.oh-my-zsh/cache/completions/_{{ item }}.zsh
+    state: link
+    src: /opt/kubectx/completion/{{ item }}.zsh
+  loop: [kubectx, kubens]

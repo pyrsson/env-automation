@@ -5,6 +5,7 @@ packages:
   - vim
   - tmux
   - kubectl
+  - fzf
 ubuntu_packages:
   - silversearcher-ag
   - apt-transport-https
