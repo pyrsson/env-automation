@@ -1,0 +1,27 @@
+- name: rpm - download latest minikube
+  ansible.builtin.uri:
+    url: https://storage.googleapis.com/minikube/releases/latest/minikube-latest.x86_64.rpm
+    dest: /tmp/minikube-latest.x86_64.rpm
+    status_code: [200, 304]
+  when: ansible_distribution == "Fedora"
+  become: yes
+
+- name: rpm - install minikube
+  ansible.builtin.dnf:
+    name: /tmp/minikube-latest.x86_64.rpm
+    state: latest
+    disable_gpg_check: yes
+  when: ansible_distribution == "Fedora"
+  become: yes
+
+- name: minikube completion generation
+  ansible.builtin.shell: minikube completion zsh | sed --expression='s/aliashash\["\([a-z]*\)"\]/aliashash[\1]/g'
+  when: ansible_distribution == "Fedora"
+  register: minikube_completion
+
+- name: minikube completion file
+  ansible.builtin.copy:
+    dest: ~/.oh-my-zsh/cache/completions/_minikube.zsh
+    content: "{{ minikube_completion.stdout }}"
+    mode: 0755
+  when: ansible_distribution == "Fedora"

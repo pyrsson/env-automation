@@ -15,7 +15,7 @@ fedora_packages:
   - code
   - alacritty
   - gnome-shell-extension-pop-shell
-  - nodejs-typescript
+  - openssl
   - bat
   - cmake
   - gcc-c++

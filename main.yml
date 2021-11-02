@@ -11,3 +11,5 @@
       tags: pip
     - ansible.builtin.import_tasks: ./tasks/kubectx.yml
       tags: kubectx
+    - ansible.builtin.import_tasks: ./tasks/minikube.yml
+      tags: minikube
