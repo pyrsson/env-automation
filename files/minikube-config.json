@@ -1,0 +1,5 @@
+{
+    "container-runtime": "cri-o",
+    "driver": "podman",
+    "feature-gates": "LocalStorageCapacityIsolation=false"
+}
