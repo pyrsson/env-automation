@@ -9,6 +9,8 @@
       tags: dotfiles
     - ansible.builtin.import_tasks: ./tasks/pip.yml
       tags: pip
+    - ansible.builtin.import_tasks: ./tasks/kubectl-comp.yml
+      tags: kubectl-comp
     - ansible.builtin.import_tasks: ./tasks/kubectx.yml
       tags: kubectx
     - ansible.builtin.import_tasks: ./tasks/minikube.yml

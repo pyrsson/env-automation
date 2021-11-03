@@ -1,0 +1,9 @@
+- name: kubectl completion generation
+  ansible.builtin.command: kubectl completion zsh
+  register: kubectl_completion
+
+- name: kubectl completion file
+  ansible.builtin.copy:
+    dest: ~/.oh-my-zsh/cache/completions/_kubectl.zsh
+    content: "{{ kubectl_completion.stdout }}"
+    mode: 0644
