@@ -26,10 +26,14 @@ fedora_packages:
   - podman
   - buildah
   - the_silver_searcher
+  - xl2tpd
+  - NetworkManager-l2tp
+  - NetworkManager-l2tp-gnome
 pip_packages:
   - docker-compose
 dotfiles:
   - .zshrc
   - .vimrc
   - .tmux.conf
+  - .alacritty.yml
 force_symlink: no

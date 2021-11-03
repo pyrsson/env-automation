@@ -1,16 +1,31 @@
+- name: check if dotfiles exists
+  ansible.builtin.stat:
+    path: ~/github/dotfiles
+  register: dotfile_dir
+
+- name: check if ohmyzsh exists
+  ansible.builtin.stat:
+    path: ~/.oh-my-zsh
+  register: ohmyzsh_dir
+
 - name: clone dotfile repo
   ansible.builtin.git:
     repo: https://github.com/pyrsson/dotfiles.git
     dest: ~/github/dotfiles
     accept_hostkey: yes
-  when: lookup('fileglob', '~/github/dotfiles')
+  when: not dotfile_dir.stat.exists
 
 - name: install ohmyzsh
   ansible.builtin.git:
     repo: https://github.com/ohmyzsh/ohmyzsh.git
     dest: ~/.oh-my-zsh
     accept_hostkey: yes
-  when: lookup('fileglob', '~/.oh-my-zsh')
+  when: not ohmyzsh_dir.stat.exists
+
+- name: ensure compeletions dir exists
+  ansible.builtin.file:
+    path: ~/.oh-my-zsh/cache/compeletions
+    state: directory
 
 - name: create links for dotfiles
   ansible.builtin.file:
