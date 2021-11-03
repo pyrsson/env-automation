@@ -1,0 +1,37 @@
+- name: helm - get latest release
+  ansible.builtin.uri:
+    url: https://github.com/helm/helm/releases/latest
+    follow_redirects: no
+    status_code: [200, 302]
+    return_content: yes
+  register: helm_release
+
+- name: helm - set latest version
+  ansible.builtin.set_fact:
+    latest_version: "{{ helm_release.content | regex_search('v\\d\\.\\d\\.\\d') }}"
+
+- name: helm - download latest release
+  ansible.builtin.uri:
+    url: https://get.helm.sh/helm-{{ latest_version }}-linux-amd64.tar.gz
+    dest: /tmp/helm-{{ latest_version }}-linux-amd64.tar.gz
+    creates: /tmp/helm-{{ latest_version }}-linux-amd64.tar.gz
+
+- name: helm - extract archive
+  ansible.builtin.unarchive:
+    src: /tmp/helm-{{ latest_version }}-linux-amd64.tar.gz
+    dest: /usr/local/bin
+    include: ["linux-amd64/helm"]
+    extra_opts: ["--strip-components", "1"]
+  become: yes
+
+- name: helm completion generation
+  ansible.builtin.command: helm completion zsh
+  when: ansible_distribution == "Fedora"
+  register: helm_completion
+
+- name: helm completion file
+  ansible.builtin.copy:
+    dest: ~/.oh-my-zsh/cache/completions/_helm.zsh
+    content: "{{ helm_completion.stdout }}"
+    mode: 0755
+  when: ansible_distribution == "Fedora"

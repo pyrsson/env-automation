@@ -13,3 +13,5 @@
       tags: kubectx
     - ansible.builtin.import_tasks: ./tasks/minikube.yml
       tags: minikube
+    - ansible.builtin.import_tasks: ./tasks/helm.yml
+      tags: helm
