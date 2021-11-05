@@ -1,0 +1,8 @@
+- name: download n binary
+  ansible.builtin.uri:
+    url: https://raw.githubusercontent.com/tj/n/master/bin/n
+    dest: /usr/local/bin/n
+    mode: 0755
+    owner: "{{ ansible_env.USER }}"
+    group: "{{ ansible_env.USER }}"
+  become: yes

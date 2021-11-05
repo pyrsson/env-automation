@@ -17,3 +17,5 @@
       tags: minikube
     - ansible.builtin.import_tasks: ./tasks/helm.yml
       tags: helm
+    - ansible.builtin.import_tasks: ./tasks/nodejs.yml
+      tags: nodejs
