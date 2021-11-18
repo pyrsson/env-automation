@@ -22,9 +22,9 @@
     accept_hostkey: yes
   when: not ohmyzsh_dir.stat.exists
 
-- name: ensure compeletions dir exists
+- name: ensure completions dir exists
   ansible.builtin.file:
-    path: ~/.oh-my-zsh/cache/compeletions
+    path: ~/.oh-my-zsh/cache/completions
     state: directory
 
 - name: create links for dotfiles

@@ -26,12 +26,10 @@
 
 - name: helm completion generation
   ansible.builtin.command: helm completion zsh
-  when: ansible_distribution == "Fedora"
   register: helm_completion
 
 - name: helm completion file
   ansible.builtin.copy:
     dest: ~/.oh-my-zsh/cache/completions/_helm.zsh
     content: "{{ helm_completion.stdout }}"
-    mode: 0755
-  when: ansible_distribution == "Fedora"
+    mode: "0755"
