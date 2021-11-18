@@ -12,9 +12,6 @@ ubuntu_packages:
   - ca-certificates
   - fonts-powerline
 fedora_packages:
-  - code
-  - alacritty
-  - gnome-shell-extension-pop-shell
   - openssl
   - bat
   - cmake
@@ -26,9 +23,20 @@ fedora_packages:
   - podman
   - buildah
   - the_silver_searcher
-  - xl2tpd
-  - NetworkManager-l2tp
-  - NetworkManager-l2tp-gnome
+  - sqlite
+  - wget
+  - curl
+  - sudo
+  - ncurses
+  - dnf-plugins-core
+  - dnf-utils
+  - passwd
+  - findutils
+  - procps-ng
+  - iputils
+  - iproute
+  - vim
+  - python-unversioned-command
 pip_packages:
   - docker-compose
 dotfiles:
